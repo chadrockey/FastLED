@@ -32,7 +32,52 @@ public:
 	virtual bool isSelected() = 0;  ///< Check if this object is currently selected
 };
 
-#if !defined(FASTLED_NO_PINMAP)
+#if defined(FASTLED_NO_FASTPIN)
+class Pin : public Selectable {
+	uint8_t mPin;
+
+public:
+	Pin(int pin) : mPin(pin) { }
+
+	typedef void * port_ptr_t;
+	typedef unsigned int port_t;
+
+	inline void setOutput() {  }
+	inline void setInput() {  }
+
+	inline void hi() __attribute__ ((always_inline)) {  }
+	inline void lo() __attribute__ ((always_inline)) {  }
+
+	inline void strobe() __attribute__ ((always_inline)) { toggle(); toggle(); }
+	inline void toggle() __attribute__ ((always_inline)) {  }
+
+	inline void hi(register port_ptr_t port) __attribute__ ((always_inline)) {  }
+	inline void lo(register port_ptr_t port) __attribute__ ((always_inline)) {  }
+	inline void set(register port_t val) __attribute__ ((always_inline)) {  }
+
+	inline void fastset(register port_ptr_t port, register port_t val) __attribute__ ((always_inline)) {  }
+
+	port_t hival() __attribute__ ((always_inline)) { return 0;  }
+	port_t loval() __attribute__ ((always_inline)) { return 0; }
+	port_ptr_t  port() __attribute__ ((always_inline)) { return 0; }
+	port_t mask() __attribute__ ((always_inline)) { return 0; }
+
+	virtual void select() { hi(); }
+	virtual void release() { lo(); }
+	virtual bool isSelected() { return 0; }
+};
+
+class OutputPin : public Pin {
+public:
+	OutputPin(int pin) : Pin(pin) { setOutput(); }
+};
+
+class InputPin : public Pin {
+public:
+	InputPin(int pin) : Pin(pin) { setInput(); }
+};
+
+#elif !defined(FASTLED_NO_PINMAP)
 
 /// Naive fallback solution for low level pin access
 class Pin : public Selectable {

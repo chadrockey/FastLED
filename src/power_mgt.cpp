@@ -45,7 +45,11 @@ static const uint8_t gDark_mW  =  1 * 5; ///<  1mA @ 5v =  5mW
 
 /// Debug Option: Set to 1 to enable the power limiting LED
 /// @see set_max_power_indicator_LED()
+#if defined(FASTLED_UNIX)
+#define POWER_LED 0
+#else
 #define POWER_LED 1
+#endif
 
 /// Debug Option: Set to enable Serial debug statements for power limit functions
 #define POWER_DEBUG_PRINT 0
@@ -99,7 +103,7 @@ uint8_t calculate_max_brightness_for_power_mW(const CRGB* ledbuffer, uint16_t nu
 	uint8_t recommended_brightness = target_brightness;
 	if(requested_power_mW > max_power_mW) { 
         recommended_brightness = (uint32_t)((uint8_t)(target_brightness) * (uint32_t)(max_power_mW)) / ((uint32_t)(requested_power_mW));
-	}
+    }
 
 	return recommended_brightness;
 }

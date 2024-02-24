@@ -38,6 +38,8 @@
 #include "platforms/arm/rp2040/led_sysdefs_arm_rp2040.h"
 #elif defined(ESP8266)
 #include "platforms/esp/8266/led_sysdefs_esp8266.h"
+#elif defined(__linux__)
+#include "platforms/unix/linux/led_sysdefs_linux.h"
 #elif defined(ESP32)
 #include "platforms/esp/32/led_sysdefs_esp32.h"
 #elif defined(__AVR__) || defined(__AVR_ATmega4809__)

@@ -38,6 +38,8 @@
 #include "platforms/arm/rp2040/fastled_arm_rp2040.h"
 #elif defined(ESP8266)
 #include "platforms/esp/8266/fastled_esp8266.h"
+#elif defined(__linux__)
+#include "platforms/unix/linux/fastled_linux.h"
 #elif defined(ESP32)
 #include "platforms/esp/32/fastled_esp32.h"
 #elif defined(ARDUINO_ARCH_APOLLO3)
