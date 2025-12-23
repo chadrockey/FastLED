@@ -1,6 +1,8 @@
 #define FASTLED_INTERNAL
 #include "FastLED.h"
 
+#include <time.h>
+
 /// @file FastLED.cpp
 /// Central source file for FastLED, implements the CFastLED class/object
 
